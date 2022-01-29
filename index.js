@@ -1,6 +1,5 @@
-if (process.env.NODE_ENV !== "production") {
-    require('dotenv').config();
-}
+const dotenv = require("dotenv");
+dotenv.config();
 
 const mongoose = require('mongoose');
 const app = require('./app');//cargamos app.js que une rutas e controladores
@@ -14,7 +13,7 @@ mongoose.connect(urlMongo, (err, res) => {
         } else {
             console.log("Conexión exitosa a la base de datos.");
             app.listen(PORT, () => {
-                console.log("Servidor de la API Rest funcionando en 'http://localhost:3000'");
+                console.log("Servidor de la API Rest funcionando");
             });
         }
     } catch (error) {
