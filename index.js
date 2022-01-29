@@ -7,7 +7,7 @@ const app = require('./app');//cargamos app.js que une rutas e controladores
 const PORT = process.env.PORT || 3000;;//iniciamos o server en PORT. En producción PORT irá en .env (ej: const PORT = process.env.PORT || 3000;)
 const urlMongo = process.env.URL_MONGO;
 
-mongoose.connect(urlMongo, (err, res) => {
+mongoose.connect(urlMongo, { useNewUrlParser: true, useUnifiedTopology: true }, (err, res) => {
     try {
         if(err) {
             throw err;
