@@ -1,5 +1,6 @@
-const dotenv = require("dotenv");
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
 
 const mongoose = require('mongoose');
 const app = require('./app');//cargamos app.js que une rutas e controladores
