@@ -34,16 +34,20 @@ async function getTasks(req, res) {
 
 //SHOW
 async function getTask(req, res) {
+    const taskId = req.params.id; 
     try {
-        const tasks = await Task.find({  }).sort({ created: -1 });
-        if(!tasks) {
+        const task = await Task.findById(taskId);
+        if(!task) {
             res.status(400).send({ msg: "No se han podido carga la tarea" });
         } else {
-            res.status(200).send({ tasks });
+            res.status(200).send(task);
         }
     } catch (error) {
         res.status(500).send(error);
     }
 }
+
+//Update
+
 
 module.exports = { createTask, getTasks, getTask };
