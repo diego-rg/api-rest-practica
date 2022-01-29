@@ -47,7 +47,7 @@ async function getTask(req, res) {
     }
 }
 
-//Update
+//UPDATE
 async function updateTask(req, res) {
     const taskId = req.params.id;
     const newData = req.body;
@@ -63,4 +63,19 @@ async function updateTask(req, res) {
     }
 }
 
-module.exports = { createTask, getTasks, getTask, updateTask };
+//DELETE
+async function deleteTask(req, res) {
+    const taskId = req.params.id;
+    try {
+        const task = await Task.findByIdAndDelete(taskId);
+        if(!task) {
+            res.status(400).send({ msg: "No se ha podido eliminar la tarea" });
+        } else {
+            res.status(200).send({ msg: "Tarea eliminada correctamente" });
+        }
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
+
+module.exports = { createTask, getTasks, getTask, updateTask, deleteTask };

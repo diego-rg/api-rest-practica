@@ -7,5 +7,6 @@ api.post("/task", taskController.createTask);//chamamos a función de crear tare
 api.get("/task", taskController.getTasks);//diferente método, polo que nome pode ser o mismo, xa que será unha ruta diferente
 api.get("/task/:id", taskController.getTask);
 api.put("/task/:id", taskController.updateTask);
+api.delete("/task/:id", taskController.deleteTask);
 
 module.exports = api;
