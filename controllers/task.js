@@ -38,7 +38,7 @@ async function getTask(req, res) {
     try {
         const task = await Task.findById(taskId);
         if(!task) {
-            res.status(400).send({ msg: "No se han podido carga la tarea" });
+            res.status(400).send({ msg: "No se ha podido cargar la tarea" });
         } else {
             res.status(200).send(task);
         }
@@ -48,6 +48,19 @@ async function getTask(req, res) {
 }
 
 //Update
+async function updateTask(req, res) {
+    const taskId = req.params.id;
+    const newData = req.body;
+    try {
+        const task = await Task.findByIdAndUpdate(taskId, newData);
+        if(!task) {
+            res.status(400).send({ msg: "No se ha podido modificar la tarea" });
+        } else {
+            res.status(200).send({ msg: "Tarea modificada correctamente" });
+        }
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
 
-
-module.exports = { createTask, getTasks, getTask };
+module.exports = { createTask, getTasks, getTask, updateTask };
