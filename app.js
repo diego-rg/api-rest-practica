@@ -4,10 +4,14 @@ const app = express();
 app.use(express.json());//para poder ver os body da requests en json
 app.use(express.urlencoded({ extended: true }));
 
-const helloRoutes = require("./routes/hello");//requerimos as rutas
+//requerimos as rutas
+const helloRoutes = require("./routes/hello");
 const taskRoutes = require("./routes/task");
+const userRoutes = require("./routes/user");
 
-app.use("/api", helloRoutes);//usamos as rutas dende a subruta /api/
+//activamos as rutas, usando subruta api
+app.use("/api", helloRoutes);
 app.use("/api", taskRoutes);
+app.use("/api", userRoutes);
 
 module.exports = app;
