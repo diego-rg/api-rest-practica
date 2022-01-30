@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== "production") {
 
 const mongoose = require('mongoose');
 const app = require('./app');//cargamos app.js que une rutas e controladores
-const PORT = process.env.PORT || 3000;;//iniciamos o server en PORT. En producción PORT irá en .env (ej: const PORT = process.env.PORT || 3000;)
+const PORT = process.env.PORT || 3000;//iniciamos o server en PORT. En producción PORT irá en .env (ej: const PORT = process.env.PORT || 3000;)
 const urlMongo = process.env.URL_MONGO;
 
 mongoose.connect(urlMongo, { useNewUrlParser: true, useUnifiedTopology: true }, (err, res) => {
