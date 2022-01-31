@@ -41,4 +41,8 @@ async function loginUser(req, res) {
     }
 }
 
-module.exports = { registerUser, loginUser };
+function protectedRoute(req, res) {
+    res.status(200).send({ msg: "Contenido de endpoint protegido" });
+}
+
+module.exports = { registerUser, loginUser, protectedRoute };

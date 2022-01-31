@@ -12,9 +12,9 @@ function authUser(req, res, next) {
     //busca as ' que haxa no token e elimínaas
     const token = req.headers.authorization.replace(/['"]+/g, "");
 
-    try {
-        const payload = jwt.decodeToken(token, secretKey);
+    const payload = jwt.decodeToken(token, secretKey);
 
+    try {
         //comprobar se o token expirou con moment
         if (payload.exp <= moment().unix()) {
             return res.status(401).send({ msg: "El token ha expirado" });
