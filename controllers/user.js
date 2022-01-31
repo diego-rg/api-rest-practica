@@ -45,4 +45,42 @@ function protectedRoute(req, res) {
     res.status(200).send({ msg: "Contenido de endpoint protegido" });
 }
 
-module.exports = { registerUser, loginUser, protectedRoute };
+function uploadAvatar(req, res) {
+    const params = req.params;
+    User.findById({ _id: params.id }, (err, userData) => {
+        if(err) {
+            res.status(500).send({ msg: "Error del servidor" });
+        } else {
+            if(!userData) {
+                res.status(404).send({ msg: "No se ha encontrado el usuario" });
+            } else {
+                let user = userData;
+                if(req.files) {
+                    const fileName = (req.files.avatar.path).substring(8);//quitamos o path uploads do string
+                    const splitName = fileName.split(".");//dividimos o nome compelto nun array cona extensión e o nome
+                    const fileExtension = splitName[1];
+
+                    if(fileExtension !== "png" && fileExtension !== "jpg") {
+                        res.status(400).send({ msg: "La extensión de la imagen debe ser png o jpg" });
+                    } else {
+                        user.avatar = fileName;
+
+                        User.findByIdAndUpdate({ _id: params.id }, user, (err, userUpdated) =>{
+                            if(err) {
+                                res.status(500)-send({ msg: "Error del servidor" });
+                            } else {
+                                if(!userUpdated) {
+                                    res.status(404).send({ msg: "No se ha poido encontrar el usuario" });
+                                } else {
+                                    res.status(200).send({ msg: "Avatar actualizado" });
+                                }
+                            }
+                        })
+                    }
+                }
+            }
+        }
+    });
+}
+
+module.exports = { registerUser, loginUser, protectedRoute, uploadAvatar };
