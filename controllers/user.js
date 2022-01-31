@@ -1,3 +1,5 @@
+const fs = require("fs");//librerias de node, solo importalas
+const path = require("path");
 const bcryptjs = require('bcryptjs');
 const User = require("../models/user");
 const jwt = require("../services/jwt");//importamos as funcións creadas que usan jwt, non a dependencia
@@ -83,4 +85,17 @@ function uploadAvatar(req, res) {
     });
 }
 
-module.exports = { registerUser, loginUser, protectedRoute, uploadAvatar };
+function getAvatar (req, res) {
+    const avatarName = req.params.avatarName;
+    const filePath = `./uploads/${avatarName}`;
+
+    fs.stat(filePath, (err, stat) =>{
+        if(err) {
+            res.status(400).send({ msg: "El avatar no existe" });
+        } else {
+            res.sendFile(path.resolve(filePath));
+        }
+    })
+}
+
+module.exports = { registerUser, loginUser, protectedRoute, uploadAvatar, getAvatar };
